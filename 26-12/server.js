@@ -6,6 +6,7 @@ const port = 4020
 const app = express()
 
 app.set("view engine" , "ejs")
+
 app.use(express.urlencoded({extended:true}))
 
 app.get('/' , (req , res) => {
