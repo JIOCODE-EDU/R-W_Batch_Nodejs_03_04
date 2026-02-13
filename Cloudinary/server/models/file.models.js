@@ -17,7 +17,6 @@ const fileSchema = new mongoose.Schema({
   size:Number,
 } , {timestamps:true})
 
-
 const File = mongoose.model("File", fileSchema)
 
 export default File

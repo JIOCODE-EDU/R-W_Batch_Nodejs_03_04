@@ -4,7 +4,6 @@ import { uploadFile } from '../controller/file.controller.js'
 import {CloudinaryStorage} from 'multer-storage-cloudinary'
 import {v2 as cloudinary} from 'cloudinary'
 
-
 const router = express.Router()
 
 const imageCloudinary = cloudinary.config({
@@ -16,7 +15,7 @@ const imageCloudinary = cloudinary.config({
 // storage setup
 
 const storage = new CloudinaryStorage({
-  imageCloudinary,
+  cloudinary:imageCloudinary,
   param:async (req , res) => {
     
     let resourceType = "image";
@@ -46,5 +45,7 @@ export const upload = multer({
     }
   }
 })
+
+router.post('/' , upload.single('file') , uploadFile)
 
 export default router
