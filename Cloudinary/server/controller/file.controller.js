@@ -1,43 +1,41 @@
-import File from "../models/file.models.js";
+import fileUpload from '../models/file.models.js'
 
-export const uploadFile = async(req , res) => {
-  try{
+export const uploadFile = async (req, res) => {
+  try {
 
-    console.log("req file received : " , req.file);
+    console.log('🔍 req.file received:', req.file);
+    if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
 
-    if(!req.file){
-      return res.status(400).json({message:"No file uploded"})
-    }
-
-    const{
-      originalName,
-      mimetype,
-      path:url,
+    const {
+      originalname,
+      path: url,
+      filename: public_id,
       format,
-      bytes:size,
-    } = req.file
+      bytes: size,
+      mimetype
+    } = req.file;
 
-    const fileDoc = await File.create({
-      originalName:originalName,
+    const fileDoc = await fileUpload.create({
+      originalName: originalname,
       url,
       public_id,
-      format:format || mimetype.split("/"),
-      size,
-    })
+      format: format || mimetype.split('/')[1],
+      mimetype
+    });
 
     return res.json({
-      message:"File Upload Successfully",
-      file:{
-        id:fileDoc._id,
-        originalName:fileDoc.originalName,
-        url:fileDoc.url,
-        public_id:fileDoc.public_id,
-        format:fileDoc.format,
-        size:fileDoc.size
+      message: 'File uploaded successfully (Cloudinary)',
+      file: {
+        id: fileDoc._id,
+        originalName: fileDoc.originalName,
+        url: fileDoc.url,
+        public_id: fileDoc.public_id,
+        format: fileDoc.format,
+        size: fileDoc.size
       }
-    })
-
-  }catch(err){
-    return res.status(400).json({error:err.message})
+    });
+  } catch (err) {
+    console.error('Upload error:', err);
+    return res.status(500).json({ message: 'Server error', error: err.message });
   }
-}
+};

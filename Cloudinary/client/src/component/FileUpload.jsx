@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const FileUpload = () => {
+
   const [file, setFile] = useState(null);
 
   const [preview, setPreview] = useState(null);
@@ -14,13 +15,10 @@ const FileUpload = () => {
 
   const [uploadFile, setUploadFile] = useState(null);
 
-  console.log("progress", progress);
+  const apiBase = "http://localhost:3020";
 
-  const api = "http://localhost:3020";
-
-  const onChange = async (e) => {
+  const onChange = (e) => {
     const f = e.target.files[0];
-
     if (!f) return;
 
     setFile(f);
@@ -28,40 +26,47 @@ const FileUpload = () => {
     setMessage("");
     setUploadFile(null);
 
-    if (f.type.startsWith("image/")) {
+    if (f.type.startsWith('image/')) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-        reader.readAsDataURL(f);
-      };
+      reader.onloadend = () => setPreview(reader.result);
+      reader.readAsDataURL(f);
     } else {
       setPreview(null);
     }
   };
 
   const onSubmit = async (e) => {
+
     e.preventDefault();
+
+    if (!file) return setMessage("Please select a file");
 
     const formData = new FormData();
 
-    formData.append("file", file);
+    formData.append('file', file);
+
+    setUploading(true);
+
+    setMessage("Uploading...");
 
     try {
-      const res = await axios.post(`${api}/upload`, formData, {
+      const res = await axios.post(`${apiBase}/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
-        onUploadProgress: (p) => {
-          let progress = setProgress(Math.round((p.loaded * 100) / p.total));
-          console.log("Inprogress", progress);
-        },
+        onUploadProgress: (p) =>
+          setProgress(Math.round((p.loaded * 100) / p.total)),
       });
 
+      console.log(res);
+      
       setUploadFile(res.data.file);
 
       setMessage(res.data.message);
 
-      // setProgress(0)
+      setProgress(0);
+
     } catch (err) {
-      setMessage(err?.res?.data?.message || "upload failed.");
+      setMessage(err?.response?.data?.message || "Upload failed");
+      setProgress(0);
     } finally {
       setUploading(false);
     }
@@ -72,29 +77,37 @@ const FileUpload = () => {
       <div>FileUpload</div>
       <div>
         <h2>Upload Cloudinary</h2>
-        <form action="" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <input type="file" name="file" id="" onChange={onChange} />
-          {preview && <img src={preview} className="" alt="images"></img>}
-          {progress > 0 && (
-            <>
-              <div>{progress}%</div>
-              {message && <p>{message}</p>}
-              {uploadFile && (
-                <div>
-                  <h1>UploadFiles</h1>
-                  <h3>file list:</h3>
-                  <p>{uploadFile.originalName}</p>
-                </div>
-              )}
-              {uploadFile.format?.include("image") ? (
-                <img src={uploadFile.url} className="" alt="images"></img>
-              ) : (
-                <a href={uploadFile.url}>View / Download Files</a>
-              )}
-            </>
+          {preview && (
+            <img
+              src={preview}
+              style={{ width: 300, height: 300 }}
+              alt="images"
+            ></img>
           )}
-          <button type="submit">{uploading ? "Uploading..." : "Upload"}</button>
+          {progress > 0 && (
+              <div>{progress}%</div>
+          )}
+          <button disabled={uploading} type="submit">{uploading ? "Uploading..." : "Upload"}</button>
         </form>
+        {/* {message && <p>{message}</p>} */}
+        {/* {uploadFile && (
+          <div>
+            <h1>UploadFiles</h1>
+            <h3>file list:</h3>
+            <p>{uploadFile.originalName}</p>
+          </div>
+        )} */}
+        {/* {uploadFile.format?.includes('image') ? (
+          <img
+            src={uploadFile.url}
+            style={{ width: 300, height: 300 }}
+            alt="images"
+          ></img>
+        ) : (
+          <a href={uploadFile.url}>View / Download Files</a>
+        )} */}
       </div>
     </>
   );

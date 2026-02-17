@@ -17,6 +17,6 @@ const fileSchema = new mongoose.Schema({
   size:Number,
 } , {timestamps:true})
 
-const File = mongoose.model("File", fileSchema)
+const fileUpload = mongoose.model("File", fileSchema)
 
-export default File
+export default fileUpload

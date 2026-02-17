@@ -16,14 +16,12 @@ const imageCloudinary = cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary:imageCloudinary,
-  param:async (req , res) => {
-    
-    let resourceType = "image";
 
+  param:async (req , file) => {
+    let resourceType = "image";
     if(file.mimetype === 'application/image'){
        resourceType = "raw";
     }
-
     return{
       resource_type:resourceType,
       folder:"app_asset",
@@ -37,8 +35,9 @@ export const upload = multer({
   limits:{
     fileSize:5 * 1024 * 1024
   },
-  fileFilter:(req , res , cb) => {
-    if(allowed_formats.test(file.mimetype)){
+  fileFilter:(req , file , cb) => {
+    const allowed = /jpeg|jpg|png|gif|webp/;
+    if(allowed.test(file.mimetype)){
       cb(null , true)
     }else{
       cb(new Error('Only Images are allowed.'))

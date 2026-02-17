@@ -1,7 +1,8 @@
 import express from 'express'
-import router ,  { upload } from './routes/file.routes.js'
+import router from './routes/file.routes.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { connectDB } from './db/db.js'
 
 const app = express()
 
@@ -14,16 +15,18 @@ dotenv.config({
 // middleware
 
 app.use(cors({
-  origin:process.env.FRONTEND_URL || "*"
+  origin:process.env.FRONTEND_URL || '*'
 }))
 
-// routes
 
-app.get("/" , (req , res) => {
+// routes
+app.use('/upload' , router)
+
+app.get('/' , (req , res) => {
   res.send("Hello Cloudinary!")
 })
 
-app.use('/upload' , router)
+connectDB();
 
 app.listen(port , () => {
   console.log("server start on port 3020");
