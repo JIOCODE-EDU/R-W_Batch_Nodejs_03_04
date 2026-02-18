@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 
 const FileUpload = () => {
-
   const [file, setFile] = useState(null);
 
   const [preview, setPreview] = useState(null);
@@ -26,7 +25,7 @@ const FileUpload = () => {
     setMessage("");
     setUploadFile(null);
 
-    if (f.type.startsWith('image/')) {
+    if (f.type.startsWith("image/")) {
       const reader = new FileReader();
       reader.onloadend = () => setPreview(reader.result);
       reader.readAsDataURL(f);
@@ -36,14 +35,13 @@ const FileUpload = () => {
   };
 
   const onSubmit = async (e) => {
-
     e.preventDefault();
 
     if (!file) return setMessage("Please select a file");
 
     const formData = new FormData();
 
-    formData.append('file', file);
+    formData.append("file", file);
 
     setUploading(true);
 
@@ -56,14 +54,11 @@ const FileUpload = () => {
           setProgress(Math.round((p.loaded * 100) / p.total)),
       });
 
-      console.log(res);
-      
       setUploadFile(res.data.file);
 
       setMessage(res.data.message);
 
       setProgress(0);
-
     } catch (err) {
       setMessage(err?.response?.data?.message || "Upload failed");
       setProgress(0);
@@ -86,28 +81,28 @@ const FileUpload = () => {
               alt="images"
             ></img>
           )}
-          {progress > 0 && (
-              <div>{progress}%</div>
-          )}
-          <button disabled={uploading} type="submit">{uploading ? "Uploading..." : "Upload"}</button>
+          {progress > 0 && <div>{progress}%</div>}
+          <button disabled={uploading} type="submit">
+            {uploading ? "Uploading..." : "Upload"}
+          </button>
         </form>
         {/* {message && <p>{message}</p>} */}
-        {/* {uploadFile && (
+        {uploadFile && (
           <div>
             <h1>UploadFiles</h1>
             <h3>file list:</h3>
             <p>{uploadFile.originalName}</p>
+            {uploadFile.format?.includes("image") ? (
+              <img
+                src={uploadFile.url}
+                style={{ width: 300, height: 300 }}
+                alt="images"
+              ></img>
+            ) : (
+              <a href={uploadFile.url}>View / Download Files</a>
+            )}
           </div>
-        )} */}
-        {/* {uploadFile.format?.includes('image') ? (
-          <img
-            src={uploadFile.url}
-            style={{ width: 300, height: 300 }}
-            alt="images"
-          ></img>
-        ) : (
-          <a href={uploadFile.url}>View / Download Files</a>
-        )} */}
+        )}
       </div>
     </>
   );

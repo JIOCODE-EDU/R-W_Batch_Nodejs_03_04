@@ -6,7 +6,7 @@ import {v2 as cloudinary} from 'cloudinary'
 
 const router = express.Router()
 
-const imageCloudinary = cloudinary.config({
+cloudinary.config({
   cloud_name:"dehf5sbvn",
   api_key:"268546367962766",
   api_secret:"7eKR4F_lh02APXVNLa7GhCYQfSg"
@@ -15,7 +15,7 @@ const imageCloudinary = cloudinary.config({
 // storage setup
 
 const storage = new CloudinaryStorage({
-  cloudinary:imageCloudinary,
+  cloudinary:cloudinary,
 
   param:async (req , file) => {
     let resourceType = "image";
@@ -36,7 +36,9 @@ export const upload = multer({
     fileSize:5 * 1024 * 1024
   },
   fileFilter:(req , file , cb) => {
+
     const allowed = /jpeg|jpg|png|gif|webp/;
+    
     if(allowed.test(file.mimetype)){
       cb(null , true)
     }else{
