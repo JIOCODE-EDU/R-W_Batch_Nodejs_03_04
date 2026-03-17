@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>😎Dashboard😂</h1>
-  <div></div>
+  <div><%= user %></div>
   <h3>Lecture Topics:</h3>
   <ul>
     <li>Cookies - store / Retrive </li>
@@ -15,7 +15,8 @@
     <li>Page Security Middleware </li>
     <li>BcryptJs / Hash Password </li>
   </ul>
-  <form action="">
+  <a href="/home">Home</a>
+  <form method="POST" action="/auth/logout">
     <button type="submit">Logout</button>
   </form>
 </body>

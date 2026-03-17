@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.routes.js'
 import pageRoutes from './routes/pages.routes.js'
 
-
 dotenv.config({
   path:'./.env'
 })
@@ -22,7 +21,8 @@ app.use(express.json())
 app.use(cookieParser('lecture-auth-2026'))
 
 app.use('/' , pageRoutes)
+app.use('/auth' , authRoutes)
 
 app.listen(port , () => {
-  console.log(`server start on port ${port}`);
+  console.log(`server start on port http://localhost:${port}`);
 })

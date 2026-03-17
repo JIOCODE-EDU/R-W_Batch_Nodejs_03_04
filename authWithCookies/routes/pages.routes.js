@@ -3,6 +3,10 @@ import { requireAuth , isLoggedIn } from '../middlewares/auth.middlewares.js'
 
 const router = express.Router()
 
+router.get('/' , (req , res) => {
+  res.render('dashboard' , {user:null})
+})
+
 // cookie
 
 router.get('/cookie_name' , (req , res) => {
@@ -15,7 +19,7 @@ router.get('/cookie_name' , (req , res) => {
 
 // dashboard
 
-router.get('/dashboard' , (req , res) => {
+router.get('/dashboard' , isLoggedIn ,  (req , res) => {
   if(!res.locals.user){
     return res.redirect('/auth/login')
   }
