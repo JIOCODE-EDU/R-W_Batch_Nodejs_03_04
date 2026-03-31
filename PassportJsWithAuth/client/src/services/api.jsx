@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API = axios.create({
   baseUrl:"http://localhost:3002/api",
-  headers:{'content-type' :"application/json"}
+  headers:{'content-type':"application/json"}
 })
 
 API.interceptors.request.use((config) => {

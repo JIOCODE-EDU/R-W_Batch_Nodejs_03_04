@@ -31,6 +31,7 @@ const handleLogin = async(e) => {
       <h2>Login Form</h2>
       <input type="email" name="" id="email" value={email} onChange={(e) => setEmail(email.target.value)} required/>
       <input type="password" name="" id="password" value={password} required onChange={(e) => setPassword(e.target.value)}/>
+      <button type='submit'>Login</button>
     </form>
     </>
   )
