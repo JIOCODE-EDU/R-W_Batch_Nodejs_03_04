@@ -3,6 +3,9 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User from "../models/User.models.js";
 import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // Local Strategy
 
@@ -14,7 +17,7 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const user = User.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
           return done(null, false, { message: "Invalid Email" });
         }

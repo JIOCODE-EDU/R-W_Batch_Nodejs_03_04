@@ -7,6 +7,7 @@ import session from 'express-session'
 import morgan from 'morgan'
 import passport from 'passport'
 import mongoose from 'mongoose'
+import './src/config/passport.js'
 import authRoutes from './src/routes/auth.routes.js'
 import apiRoutes from './src/routes/api.routes.js'
 
@@ -31,6 +32,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use(session({
   secret:process.env.SESSION_SECRET || 'secret-key',
+  resave:false,
   saveUninitialized:false,
   cookie:{secure:false , maxAge:24 * 60 * 60 * 1000}
 }))

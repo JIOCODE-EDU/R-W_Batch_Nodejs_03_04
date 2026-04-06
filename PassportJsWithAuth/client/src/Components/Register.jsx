@@ -14,7 +14,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3002/auth/login", {
+      const res = await axios.post("http://localhost:3002/auth/register", {
         name,
         email,
         password,
@@ -23,6 +23,7 @@ const Register = () => {
       localStorage.setItem("token", res.data.token || " ");
 
       navigate("/login");
+      
     } catch (err) {
       alert(err.response?.data?.message || "Registration failed!!");
     }
@@ -30,9 +31,9 @@ const Register = () => {
 
   return (
     <>
-      <div>Login Page</div>
+      <div>Register Page</div>
       <form onSubmit={handleLogin}>
-        <h2>Login Form</h2>
+        <h2>Register Form</h2>
         <input
           type="text"
           name=""
@@ -45,7 +46,7 @@ const Register = () => {
           name=""
           id="email"
           value={email}
-          onChange={(e) => setEmail(email.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input

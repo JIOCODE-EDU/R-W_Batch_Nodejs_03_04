@@ -1,16 +1,13 @@
 import { Router } from "express";
-import { register , login , googleLogin , googleCallback } from "../controllers/auth.controllers.js";
+import { register , login , googleLogin , googleCallback , logout } from "../controllers/auth.controllers.js";
 
 const router = Router()
 
 router.post('/register' , register)
 router.post('/login' , login)
-router.post('/google' , googleLogin)
-router.post('/google/callback' , googleCallback)
-router.post('/logout', (req, res) => {
-  req.logout(() => {});
-  res.clearCookie('token');
-  res.json({ success: true });
-});
+router.get('/google' , googleLogin)
+router.get('/google/callback' , googleCallback)
+router.post('/logout', logout);
+
 
 export default router;

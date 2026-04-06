@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../services/api";
 
 const Profile = () => {
+  
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -9,7 +10,7 @@ const Profile = () => {
       try {
         const res = await API.get("/profile");
         setUser(res.data);
-      } catch (err) {
+      } catch {
         alert("Access Denied. Please Log in.");
       }
     };
