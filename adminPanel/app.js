@@ -2,7 +2,6 @@ import express from 'express'
 import dotenv from 'dotenv'
 import adminRoutes from './routes/admin.routes.js'
 import path from 'path'
-import e from 'express'
 
 dotenv.config({
   path:'./.env'
