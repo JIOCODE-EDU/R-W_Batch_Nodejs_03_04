@@ -1,12 +1,23 @@
 <%- include('header') %>
 
-<div class="card" style="width: 18rem;">
-  <img src="" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="page-wrapper">
+    <div class="container-fluid">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= user.profileImage %>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Name: <%= user.firstname %>
+              <%= user.lastname %>
+          </h5>
+          <p class="card-text">Email: <%= user.email %>
+          </p>
+          <p class="card-text">Gender: <%= user.gender %>
+          </p>
+          <p class="card-text">MobileNo: <%= user.mobileNo %>
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<%- include('footer') %>
+  <%- include('footer') %>
