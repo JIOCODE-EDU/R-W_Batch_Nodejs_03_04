@@ -124,3 +124,93 @@ export const forgotPasswordPage = (req , res) => {
     return res.redirect("/dashboard")
   }
 }
+
+export const verifyOtpPage = async(req , res) => {
+  try{
+    return res.render("resetpass/verifyOtp")
+  }catch(err){
+    console.log(err);
+    return res.redirect("/dashboard")
+  }
+}
+
+export const resetPasswordPage = async(req , res) => {
+  try{
+    return res.render("resetpass/resetPassword")
+  }catch(err){
+    console.log(err);
+    return res.redirect("/dashboard")
+  }
+}
+
+
+export const generateOTP = async () => {
+  try{
+    const admin = await Admin.findOne({email:req.body.email})
+    if(!admin){
+      console.log("Admin not found");
+      return res.redirect("/forgot-password")
+    }
+
+    let otp = otpgenerator.generate(6 , {upperCaseAlphabets:false , specialChars:false , lowerCaseAlphabets:false})
+
+    let ip_address = os.networkInterfaces().Ethernet[1].address
+
+    let msg = {
+      from:'rw5.vivek.mk@gmail.com',
+      to:`${req.body.email}`,
+      subject:"Reset Password OTP",
+      html:`<p>Your OTP for resetting password is ${otp} and the request is made from IP address ${ip_address} ${os.hostname()}</p>`
+    }
+
+    sendEmail(msg)
+    res.cookie("otp" , otp)
+    res.cookie("email" , admin.email)
+
+    return res.redirect("/verify-otp")
+   
+  }catch(err){
+    console.log(err);
+    return res.redirect("/dashboard")
+  }
+}
+
+
+export const verifyOTP = async(req , res) => {
+  try{
+    let otp = res.cookies.otp
+    if(otp != req.body.otp){
+      console.log("Invalid OTP");
+      return res.redirect("/verify-otp")
+    }
+
+    res.clearCookie("otp")
+    return res.redirect("/reset-password")
+  }catch(err){
+    console.log(err);
+    return res.redirect("/dashboard")
+  } 
+}
+
+export const resetPassword = async(req  ,res) => {
+  try{
+    let email = req.cookies.email
+    if(req.body.newPassword != req.body.confirmPassword){
+      console.log("Password is not matched.")
+    }
+
+    return res.redirect("/reset-password")
+
+    let haspassword = await bcrypt.hash(req.body.newPassword , 10)
+
+    await Admin.findOneAndUpdate({email:email} , {password:haspassword} , {new:true})
+
+    res.clearCookie('email')
+
+    return res.redirect("/")
+
+  }catch(err){
+    console.log(err);
+    return res.redirect("/dashboard")
+  }
+}

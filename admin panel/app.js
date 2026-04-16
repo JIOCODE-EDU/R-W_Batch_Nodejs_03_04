@@ -3,6 +3,8 @@ import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import adminRoutes from "./routes/admin.routes";
+import indexRoutes from "./routes/index.routes";
 
 dotenv.config();
 

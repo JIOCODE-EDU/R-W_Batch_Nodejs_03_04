@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
 
-exports.addAdminPage = async(req, res) => {
+export const addAdminPage = async(req, res) => {
     try {
         if(req.cookies && req.cookies.user && req.cookies.user._id != undefined)
             return res.render("admin/addAdmin");
@@ -15,7 +15,7 @@ exports.addAdminPage = async(req, res) => {
     }
 }
 
-exports.viewAllAdmins = async(req, res) => {
+export const viewAllAdmins = async(req, res) => {
     try {
         let search = req.query.search ? req.query.search : "";
         let user = req.cookies.user;
@@ -37,7 +37,7 @@ exports.viewAllAdmins = async(req, res) => {
     }
 }
 
-exports.addAdmin = async(req, res) => {
+export const addAdmin = async(req, res) => {
     try {
        let imagepath = "";
        if(req.file){
@@ -59,7 +59,7 @@ exports.addAdmin = async(req, res) => {
     }
 }
 
-exports.deleteAdmin = async(req, res) => {
+export const deleteAdmin = async(req, res) => {
     try {
         let admin = await Admin.findById(req.params.id);
         if(!admin){
