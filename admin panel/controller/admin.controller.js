@@ -1,7 +1,8 @@
-const Admin = require('../model/admin.model');
-const bcrypt = require('bcrypt');
-const path = require('path');
-const fs = require('fs');
+import { Admin } from "../model/admin-panel.model.js";
+import bcrypt from "bcrypt";
+import path from "path";
+import fs from "fs";
+
 
 export const addAdminPage = async(req, res) => {
     try {
@@ -44,7 +45,6 @@ export const addAdmin = async(req, res) => {
         imagepath = `/uploads/${req.file.filename}`;
        }
        let hashpassword = await bcrypt.hash(req.body.password, 10);
-
 
        let admin = await Admin.create({
         ...req.body,

@@ -1,36 +1,26 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import adminRoutes from "./routes/admin.routes";
-import indexRoutes from "./routes/index.routes";
+import adminRoutes from "./routes/admin.routes.js";
+import indexRoutes from "./routes/index.routes.js";
+import connectDB from "./config/db.js";
 
 dotenv.config();
 
 const app = express();
+
+const port = process.env.PORT || 3000;
+
+connectDB();
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
 app.use(express.urlencoded({extended:true}));
-app.use(express.urlencoded());
 app.set("view engine" , "ejs")
+app.use("/uploads" , adminRoutes);
+app.use("/" , indexRoutes)
 
-app.use("/uploads" , express.static("uploads"));
-
-// app.use("/" , require("./routes/index.routes"))
-
-app.listen(3000 , () => {
-    console.log("http://localhost:3000");
+app.listen(port , () => {
+    console.log(`http://localhost:${port}`);
 })
-
-// database connection
-// routes
-// controllers
-// middlewares
-// utils
-// models
-// views
-// public
-// uploads
-// app.js

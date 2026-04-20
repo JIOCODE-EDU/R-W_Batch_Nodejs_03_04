@@ -23,7 +23,7 @@
       href="../assets/images/favicon.png"
     />
     <!-- Custom CSS -->
-    <link href="../dist/css/style.min.css" rel="stylesheet" />
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <div class="main-wrapper">
+    <div class="main-wrapper vh-100">
       <!-- ============================================================== -->
       <!-- Preloader - style you can find in spinners.css -->
       <!-- ============================================================== -->
@@ -57,20 +57,21 @@
           justify-content-center
           align-items-center
           bg-dark
+          vh-100
         "
       >
-        <div class="auth-box bg-dark border-top border-secondary">
+        <div class="auth-box bg-dark border-secondary">
           <div id="loginform">
             <div class="text-center pt-3 pb-3">
               <span class="db"
-                ><img src="../assets/images/logo.png" alt="logo"
+                ><img src="/asset/images/logo.png" alt="logo"
               /></span>
             </div>
             <!-- Form -->
             <form
               class="form-horizontal mt-3"
               id="loginform"
-              action="index.html"
+              action="/views/dashboard.ejs"
             >
               <div class="row pb-4">
                 <div class="col-12">
@@ -79,8 +80,7 @@
                       <span
                         class="input-group-text bg-success text-white h-100"
                         id="basic-addon1"
-                        ><i class="mdi mdi-account fs-4"></i
-                      ></span>
+                        ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-pen-icon lucide-user-round-pen"><path d="M2 21a8 8 0 0 1 10.821-7.487"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="8" r="5"/></svg></span>
                     </div>
                     <input
                       type="text"
@@ -96,8 +96,7 @@
                       <span
                         class="input-group-text bg-warning text-white h-100"
                         id="basic-addon2"
-                        ><i class="mdi mdi-lock fs-4"></i
-                      ></span>
+                        ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round-icon lucide-key-round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg></span>
                     </div>
                     <input
                       type="text"
@@ -119,7 +118,7 @@
                         id="to-recover"
                         type="button"
                       >
-                        <i class="mdi mdi-lock fs-4 me-1"></i> Lost password?
+                        Lost password?
                       </button>
                       <button
                         class="btn btn-success float-end text-white"
@@ -132,55 +131,6 @@
                 </div>
               </div>
             </form>
-          </div>
-          <div id="recoverform">
-            <div class="text-center">
-              <span class="text-white"
-                >Enter your e-mail address below and we will send you
-                instructions how to recover a password.</span
-              >
-            </div>
-            <div class="row mt-3">
-              <!-- Form -->
-              <form class="col-12" action="index.html">
-                <!-- email -->
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span
-                      class="input-group-text bg-danger text-white h-100"
-                      id="basic-addon1"
-                      ><i class="mdi mdi-email fs-4"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg"
-                    placeholder="Email Address"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                  />
-                </div>
-                <!-- pwd -->
-                <div class="row mt-3 pt-3 border-top border-secondary">
-                  <div class="col-12">
-                    <a
-                      class="btn btn-success text-white"
-                      href="#"
-                      id="to-login"
-                      name="action"
-                      >Back To Login</a
-                    >
-                    <button
-                      class="btn btn-info float-end"
-                      type="button"
-                      name="action"
-                    >
-                      Recover
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
           </div>
         </div>
       </div>
@@ -205,7 +155,7 @@
     <!-- ============================================================== -->
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->

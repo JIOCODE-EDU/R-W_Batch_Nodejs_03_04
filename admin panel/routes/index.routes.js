@@ -15,10 +15,10 @@ indexRoutes.post("/send-otp" , generateOTP)
 indexRoutes.post("/verify-otp" , verifyOTP)
 indexRoutes.get("/verify-otp" , verifyOtpPage)
 indexRoutes.get("/reset-password" , resetPasswordPage)
-indexRoutes.port("/reset-password" , resetPassword)
+indexRoutes.post("/reset-password" , resetPassword)
 
 indexRoutes.get("/dashboard" , dashboard)
 
-indexRoutes.use("/admin" , import ('./admin.routes.js'))
+// indexRoutes.use("/admin" , import ('./admin.routes.js'))
 
 export default indexRoutes
